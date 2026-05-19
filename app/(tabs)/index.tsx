@@ -5,21 +5,35 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/header";
-import { BANNERS } from "@/assets/assets";
+import { BANNERS, dummyProducts } from "@/assets/assets";
 import { useRouter } from "expo-router";
 import { CATEGORIES } from "@/constants";
 import CategoryItem from "@/components/CategoryItem";
+import { Product } from "@/constants/types";
+import ProductCard from "@/components/ProductCard";
 const { width } = Dimensions.get("window");
 const CARD_WIDTH = width - 32;
 
 export default function Home() {
   const [activeBannerIndex, setActiveBannerIndex] = useState(0);
   const router = useRouter();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
   const categories = [{ id: "all", name: "All", icon: "grid" }, ...CATEGORIES];
+  const fetchProducts = async () => {
+    setProducts(dummyProducts);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <SafeAreaView className="flex-1" edges={["top"]}>
@@ -107,6 +121,37 @@ export default function Home() {
               />
             ))}
           </ScrollView>
+        </View>
+
+        {/* Popular Product Grid */}
+        <View className="mb-8">
+          <View className="flex-row justify-between items-center mb-4">
+            <Text className="text-xl font-bold text-primary">Popular</Text>
+            <TouchableOpacity onPress={()=>router.push('/shop')}>
+              <Text className="text-secondary text-sm">See All</Text>
+            </TouchableOpacity>
+          </View>
+          {
+            loading ?(
+              <ActivityIndicator size='large'/>
+            ):(
+              <View className="flex-row flex-wrap justify-between">
+                {products.slice(0, 4).map((product) => (
+                  <ProductCard key={product._id} product={product}/>
+                ))}
+              </View>
+            )
+          }
+        </View>
+        {/* Newsletter CTA */}
+        <View className="bg-gray-100 p-6 rounded-2xl mb-20 items-center">
+          <Text className="text-2xl font-bold text-primary mb-2 text-center">Join the Revolution</Text>
+          <Text className="text-secondary text-center mb-4">
+            Subscribe to our newsletter and get 10% off your first purchase
+          </Text>
+          <TouchableOpacity className="bg-primary w-4/5 py-3 rounded-full items-center">
+            <Text className="text-white font-medium text-base">Subscribe Now</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
