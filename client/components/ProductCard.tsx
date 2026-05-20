@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image, Pressable } from "react-native";
 import React from "react";
 import { ProductCardProps } from "@/constants/types";
 import { Link } from "expo-router";
@@ -7,8 +7,7 @@ import { COLORS } from "@/constants";
 import { useWishlist } from "@/context/WishlistContext";
 
 export default function ProductCard({ product }: ProductCardProps) {
-
-  const {toggleWishlist,isInWishlist}=useWishlist();
+  const { toggleWishlist, isInWishlist } = useWishlist();
   const isLiked = isInWishlist(product._id);
 
   return (
@@ -22,16 +21,19 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
 
           {/* Favorite icon */}
-          <TouchableOpacity
-            onPress={(e) => {e.stopPropagation();toggleWishlist(product)}}
-            className="absolute top-2 right-2 z-10 p-2 bg-white rounded-full shadow-sm"
+          <Pressable
+            onPress={(e) => {
+              e.stopPropagation();
+              toggleWishlist(product);
+            }}
+            className="absolute top-2 right-2 z-10 p-2 bg-white rounded-full shadow-sm active:opacity-70"
           >
             <Ionicons
               name={isLiked ? "heart" : "heart-outline"}
               size={20}
               color={isLiked ? COLORS.accent : COLORS.primary}
             />
-          </TouchableOpacity>
+          </Pressable>
 
           {/*is featured  */}
           {product.isFeatured && (
@@ -61,8 +63,6 @@ export default function ProductCard({ product }: ProductCardProps) {
             </Text>
           </View>
         </View>
-
-        
       </TouchableOpacity>
     </Link>
   );
