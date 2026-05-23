@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { FlatList, Text, TouchableOpacity, View, ActivityIndicator, ScrollView, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Header from "@/components/Header";
 import { COLORS, getStatusColor } from "@/constants";
 import type { Order } from "@/constants/types";
 import { dummyOrders, formatDate } from "@/assets/assets";
+import Header from "@/components/header";
 
 export default function Orders() {
     const router = useRouter();

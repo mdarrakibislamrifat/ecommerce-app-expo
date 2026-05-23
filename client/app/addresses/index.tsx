@@ -2,10 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View, Modal, TextInput, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Header from "@/components/Header";
 import { COLORS } from "@/constants";
 import type { Address } from "@/constants/types";
 import { dummyAddress } from "@/assets/assets";
+import Header from "@/components/header";
 
 export default function Addresses() {
     const [addresses, setAddresses] = useState<Address[]>([]);
