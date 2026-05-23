@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
-  ActivityIndicatorBase,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Product } from "@/constants/types";
@@ -81,10 +80,14 @@ export default function Shop() {
         </View>
 
         {/* Filtered Icon */}
-        {/* Filtered Icon */}
-<TouchableOpacity className="bg-gray-800 w-12 h-12 items-center justify-center rounded-xl">
-  <Ionicons name="options-outline" size={20} color="white" />
-</TouchableOpacity>
+        <TouchableOpacity
+          accessibilityRole="button"
+          accessibilityHint="Opens product filter options"
+          accessibilityLabel="Open filters"
+          className="bg-gray-800 w-12 h-12 items-center justify-center rounded-xl"
+        >
+          <Ionicons name="options-outline" size={20} color="white" />
+        </TouchableOpacity>
       </View>
       {loading ? (
         <View className="flex-1 justify-center items-center">
