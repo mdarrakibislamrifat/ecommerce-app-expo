@@ -17,7 +17,7 @@ export default function Profile() {
     await signOut();
     router.replace("/sign-in")
   }
-
+ 
   return (
     <SafeAreaView className="flex-1 bg-surface" edges={["top"]}>
       <Header title="Profile" />
